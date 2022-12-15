@@ -2,141 +2,227 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import ImageTk
 from PIL import Image
-import time
-import os
+from random import *
 
-class MyGUI:
 
-    def __init__(self):
+class Page(tk.Frame):
 
-        #initialize tk object
-        self.root = tk.Tk()
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, *args, **kwargs)
 
-        #sets the bounds of the window (x, y)
-        self.root.geometry("600x550")
-
-        #sets window title
-        self.root.title("Food Randomizer")
-
-        #initializes parent menu bar
-        self.menubar = tk.Menu(self.root)
-
-        #initializes file menu on parent menu bar
-        self.filemenu = tk.Menu(self.menubar, tearoff = 0)
-
-        #adds a file options to the menu
-        self.filemenu.add_command(label = "Refresh", command = self.doNothing)
-        self.filemenu.add_command(label = "Share", command = self.doNothing)
-        #add separator bar to sub-menu
-        self.filemenu.add_separator()
-        self.filemenu.add_command(label = "Exit", command = self.on_closing)
-        self.filemenu.add_command(label = "Force Quit", command = exit)
-
-        #add mode menu to the parent menu bar
-        #mode menu to select between different food randomizer modes
-        self.modeMenu = tk.Menu(self.menubar, tearoff = 0)
-        self.modeMenu.add_command(label = "All Restaurants", command = self.doNothing)
-        self.modeMenu.add_command(label = "Fast Food", command = self.doNothing)
-        self.modeMenu.add_command(label = "Genre Selector", command = self.doNothing)
-        self.modeMenu.add_command(label = "Battle Royale", command = self.doNothing)
-
-        #adds the filemenu to the menubar
-        self.menubar.add_cascade(menu = self.filemenu, label = "File")
-        self.menubar.add_cascade(menu = self.modeMenu, label = "Mode")
-
-        #add parent menu to the window
-        self.root.config(menu = self.menubar)
-
-        #add label to top of the window as program title
-        self.programTitle = tk.Label(self.root, text = "Welcome", font = ('Chalkboard', 40))
-        self.programTitle.pack(padx = 5)
-
-        #add label to below program title for description
-        self.programTitle = tk.Label(self.root, text = "<     Please select one of the following options     >", font = ('Chalkboard', 18))
-        self.programTitle.pack(padx = 5, pady = 16)
-
-        #   ****  ADDS TEXTBOX  ****
-        #self.label = tk.Label(self.root, text = "Your Message", font = ('Arial', 18))
-        #self.label.pack(padx = 10, pady = 10)
-        #self.textbox = tk.Text(self.root, height = 5, font = ('Arial', 16))
-        #bind a keypress to an action
-        #self.textbox.bind("<KeyPress>", self.shortcut)
-        #self.textbox.pack(padx = 10, pady = 10)
-        #self.check_state = tk.IntVar()
-        #self.check = tk.Checkbutton(self.root, text = "Show Messagebox", font = ('Arial', 16), variable = self.check_state)
-        #self.check.pack(padx = 10, pady = 10)
-        #self.button = tk.Button(self.root, text = "Show Message", font = ('Arial', 18), command = self.show_message)
-        #self.button.pack(padx = 10, pady = 10)
-        #self.clearbutton = tk.Button(self.root, text = "Clear", font = ('Arial', 18), command = self.clear)
-        #self.clearbutton.pack(padx = 10, pady = 10)
-
-        #initialize a button frame
-        buttonframe = tk.Frame(self.root)
-
-        #stretch the 2 buttons to fill the y-axis
-        buttonframe.columnconfigure(0, weight = 1)
-        buttonframe.columnconfigure(1, weight = 1)
-        buttonframe.columnconfigure(2, weight = 1)
-        buttonframe.columnconfigure(3, weight = 1)
-
-        #initialize all restaurants button to the frame
-        firstButton = tk.Button(buttonframe, text = "All Restaurants", font = ('Chalkboard', 22), height = 2, width = 30)
-        firstButton.grid(pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
-
-        #initialize fast food button to the frame
-        secondButton = tk.Button(buttonframe, text = "Fast Food", font = ('Chalkboard', 22), height = 2, width = 30)
-        secondButton.grid(pady = 12, row = 1, column = 0, sticky = tk.W + tk.E)
-
-        #initialize genre selector button to the frame
-        thirdButton = tk.Button(buttonframe, text = "Genre Selector", font = ('Chalkboard', 22), height = 2, width = 30)
-        thirdButton.grid(pady = 12, row = 2, column = 0, sticky = tk.W + tk.E)
-
-        #initialize battle royale button to the frame
-        fourthButton = tk.Button(buttonframe, text = "Battle Royale", font = ('Chalkboard', 22), height = 2, width = 30)
-        fourthButton.grid(pady = 12, row = 3, column = 0, sticky = tk.W + tk.E)
-
-        #stretch into the y-axis
-        buttonframe.pack(fill = 'y')
-
-        #   ADDS IMAGES TO THE WINDOW
-        #initialize image of dancing cookie
-        #cookiePath = Image.open("/Users/james/VSCode/Python/foodRandomizer/question-mark.gif")
-        #leftImage = ImageTk.PhotoImage(cookiePath, format = "gif -index 20")
-        #initialize image of dancing taco
-        #tacoPath = Image.open("/Users/james/VSCode/Python/foodRandomizer/question-mark.gif")
-        #rightImage = ImageTk.PhotoImage(tacoPath)
-        #create image labels to place the images onto the window
-        #imageLabel_one = tk.Label(image = leftImage)
-        #imageLabel_two = tk.Label(image = rightImage)
-        #position images
-        #imageLabel_one.place(x = 0, y = 190)
-        #imageLabel_two.place(x = 210, y = 190)
-        #imageLabel_one.pack(padx = 10, side = "right", fill = 'x')
-        #imageLabel_two.pack(side = "left")
-
-        #set default closing protocol
-        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
-
-        self.root.mainloop()
-
-    def shortcut(self, event):
-        #print("--------")        
-        #print(event.keysym)
-        #print("--------")     
-        #print(event.state)
-        #print("--------")     
-        
-        if event.state == 0 and event.keysym == "apostrophe":
-            self.show_message()
-
-    
-    def on_closing(self):
-        if messagebox.askyesno(title = "Quit?", message = "Do you really want to quit?"):
-            #actually closes the window
-            self.root.destroy()
+    def show(self):
+        self.lift()
 
     def doNothing(self):
         pass
 
+    def on_closing(self):
+        if messagebox.askyesno(title = "Quit?", message = "Do you really want to quit?"):
+            #actually closes the window
+            self.destroy()
 
-MyGUI()
+class Randomizer():
+
+    def randomNum(self, lower, upper):
+        num = randint(lower, upper)
+        return num
+
+
+class AllRestaurants(Page):
+
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        #add label to top of the window as program title
+        self.programTitle = tk.Label(self, text = "All Restuarants", font = ('Chalkboard', 60))
+        self.programTitle.pack(padx = 5, pady = 20)
+        
+        r = Randomizer()
+
+        num = r.randomNum(0, 10)
+
+        #initialize a button frame
+        buttonframe = tk.Frame(self)
+
+        #stretch the button to fill the x-axis
+        buttonframe.columnconfigure(0, weight = 1)
+
+        #initialize randomize button
+        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30)
+        
+        #add button the grid
+        button.grid(padx = 30,pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
+        
+        #stretch into the x-axis
+        buttonframe.pack(fill = 'x')
+
+        #initialize image of dancing cookie
+        #imagePath = Image.open("/Users/james/VSCode/Python/freeSpace/mcdonalds.jpeg")
+        #randomImage = ImageTk.PhotoImage(imagePath)
+
+        #create image labels to place the images onto the window
+        #imageLabel = tk.Label(image = randomImage)
+
+        #position images
+        #imageLabel.place(x = 200, y = 250)  
+        #imageLabel.pack(padx = 10, fill = 'x')
+
+
+
+class FastFood(Page):
+
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+        
+        #add label to top of the window as program title
+        self.programTitle = tk.Label(self, text = "Fast Food", font = ('Chalkboard', 60))
+        self.programTitle.pack(padx = 5, pady = 20)
+
+        #initialize a button frame
+        buttonframe = tk.Frame(self)
+
+        #stretch the button to fill the x-axis
+        buttonframe.columnconfigure(0, weight = 1)
+
+        #initialize randomize button
+        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30)
+        
+        #add button the grid
+        button.grid(padx = 30,pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
+        
+        #stretch into the x-axis
+        buttonframe.pack(fill = 'x')
+
+
+class GenreSelector(Page):
+    
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+        
+        #add label to top of the window as program title
+        self.programTitle = tk.Label(self, text = "Genre Selector", font = ('Chalkboard', 60))
+        self.programTitle.pack(padx = 5, pady = 20)
+
+        #initialize a button frame
+        buttonframe = tk.Frame(self)
+
+        #stretch the button to fill the x-axis
+        buttonframe.columnconfigure(0, weight = 1)
+
+        #initialize randomize button
+        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30)
+        
+        #add button the grid
+        button.grid(padx = 30,pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
+        
+        #stretch into the x-axis
+        buttonframe.pack(fill = 'x')
+
+
+class BattleRoyale(Page):
+
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+        
+        #add label to top of the window as program title
+        self.programTitle = tk.Label(self, text = "Battle Royale", font = ('Chalkboard', 60))
+        self.programTitle.pack(padx = 5, pady = 20)
+
+        #initialize a button frame
+        buttonframe = tk.Frame(self)
+
+        #stretch the 4 buttons to fill the y-axis
+        buttonframe.columnconfigure(0, weight = 1)
+        buttonframe.columnconfigure(1, weight = 1)
+
+        #initialize option selection buttons
+        leftButton = tk.Button(buttonframe, text = "Option 1", font = ('Chalkboard', 22), height = 2, width = 30)
+        rightButton = tk.Button(buttonframe, text = "Option 2", font = ('Chalkboard', 22), height = 2, width = 30)
+
+        leftButton.grid(pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
+        rightButton.grid(pady = 12, row = 0, column = 1, sticky = tk.W + tk.E)
+
+        #stretch into the y-axis
+        buttonframe.pack(padx = 20, fill = 'x')
+
+class TitlePage(Page):
+
+    def __init__(self, *args, **kwargs):
+        Page.__init__(self, *args, **kwargs)
+
+        #add label to top of the window as program title
+        self.programTitle = tk.Label(self, text = "Welcome", font = ('Chalkboard', 60))
+        self.programTitle.pack(padx = 5, pady = 60)
+
+        #add label to below program title for description
+        self.programTitle = tk.Label(self, text = "<     Please select one of the following options     >", font = ('Chalkboard', 24))
+        self.programTitle.pack(padx = 5, pady = 90)
+
+class MainView(tk.Frame):
+
+    def __init__(self, *args, **kwargs):
+        tk.Frame.__init__(self, *args, **kwargs)
+        
+        #initialize objects
+        p1 = TitlePage(self)
+        p2 = AllRestaurants(self)
+        p3 = FastFood(self)
+        p4 = GenreSelector(self)
+        p5 = BattleRoyale(self)
+
+        #create frame for the buttons
+        buttonframe = tk.Frame(self)
+
+        #create container for switching between the 4 modes
+        container = tk.Frame(self)
+        
+        # stretch the 4 buttons to fill the x-axis
+        buttonframe.columnconfigure(0, weight = 1)
+        buttonframe.columnconfigure(1, weight = 1)
+        buttonframe.columnconfigure(2, weight = 1)
+        buttonframe.columnconfigure(3, weight = 1)
+        buttonframe.columnconfigure(4, weight = 1)
+
+        #place the container onto the window
+        container.pack(side='top', fill='both', expand = True)
+
+        #place all objects on the container on one another
+        p1.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p2.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p3.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p4.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+        p5.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
+
+        #initialize all restaurants button to the frame
+        firstButton = tk.Button(buttonframe, text = "Main Menu", font = ('Chalkboard', 14), height = 2, width = 30, command = p1.show)
+        firstButton.grid(pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
+
+        #initialize fast food button to the frame
+        secondButton = tk.Button(buttonframe, text = "All Restaurants", font = ('Chalkboard', 14), height = 2, width = 30, command = p2.show)
+        secondButton.grid(pady = 12, row = 0, column = 1, sticky = tk.W + tk.E)
+
+        #initialize genre selector button to the frame
+        thirdButton = tk.Button(buttonframe, text = "Fast Food", font = ('Chalkboard', 14), height = 2, width = 30, command = p3.show)
+        thirdButton.grid(pady = 12, row = 0, column = 2, sticky = tk.W + tk.E)
+
+        #initialize battle royale button to the frame
+        fourthButton = tk.Button(buttonframe, text = "Genre Selector", font = ('Chalkboard', 14), height = 2, width = 30, command = p4.show)
+        fourthButton.grid(pady = 12, row = 0, column = 3, sticky = tk.W + tk.E)
+
+        #initialize battle royale button to the frame
+        fifthButton = tk.Button(buttonframe, text = "Battle Royale", font = ('Chalkboard', 14), height = 2, width = 30, command = p5.show)
+        fifthButton.grid(pady = 12, row = 0, column = 4, sticky = tk.W + tk.E)
+
+        #stretch into the y-axis
+        buttonframe.pack(fill = 'y')
+
+        #start program by showing title page
+        p1.show()
+
+
+if __name__ == '__main__':
+    root = tk.Tk()
+    main = MainView(root)
+    main.pack(side='top', fill='both', expand=True)
+    root.wm_geometry('600x650')
+    root.mainloop()

@@ -23,8 +23,19 @@ class Page(tk.Frame):
             self.destroy()
 
     def refresh(self):
-        self.refresh
-        #self.__init__()
+
+        #retrieve directory path
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+
+        #initialize image of restaurant logo
+        self.imagePath = Image.open(dir_path + "/images/question-mark.gif")
+        
+        #initializes random image
+        self.randomImage = ImageTk.PhotoImage(self.imagePath)
+
+        #create image labels to place the images onto the window
+        self.imageLabel = tk.Label(self, image = self.randomImage)
+        
         
 
 class Randomizer():
@@ -117,7 +128,7 @@ class AllRestaurants(Page):
         self.imageLabel = tk.Label(self, image = self.randomImage)
 
         #position images
-        self.imageLabel.place(y = 250, x = 140)
+        self.imageLabel.pack(side = "bottom", expand = "true")
         
 
 class FastFood(Page):
@@ -253,7 +264,7 @@ class FastFood(Page):
         self.imageLabel = tk.Label(self, image = self.randomImage)
 
         #position images
-        self.imageLabel.place(y = 250, x = 140)
+        self.imageLabel.pack(side = "bottom", expand = "true")
 
 
 class BreakfastFood(Page):
@@ -357,7 +368,7 @@ class BreakfastFood(Page):
         self.imageLabel = tk.Label(self, image = self.randomImage)
 
         #position images
-        self.imageLabel.place(y = 250, x = 140)
+        self.imageLabel.pack(side = "bottom", expand = "true")
 
 
 class BattleRoyale(Page):

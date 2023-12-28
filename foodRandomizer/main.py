@@ -55,13 +55,26 @@ class CasualDining(Page):
             4: "/images/restaurants/oreganos.jpg",
             5: "/images/restaurants/pita-jungle.jpg",
             6: "/images/restaurants/postinos.jpg",
-            7: "/images/restaurants/t-roadhouse.jpg"
+            7: "/images/restaurants/t-roadhouse.jpg",
+            8: "/images/restaurants/fourpeaks.jpg",
+            9: "/images/restaurants/fuzzys.png",
+            10: "/images/restaurants/chuckbox.jpg",
+            11: "/images/restaurants/ipetes.png",
+            12: "/images/restaurants/theporch.jpg",
+            13: "/images/restaurants/sauce.jpg",
+            14: "/images/restaurants/cheesecake.png",
+            15: "/images/restaurants/thelodge.jpg",
+            15: "/images/restaurants/keg.png",
+            16: "/images/restaurants/rrobin.jpg",
+            17: "/images/restaurants/bdubs.png",
+            18: "/images/restaurants/ogarden.jpg",
+            19: "/images/restaurants/bjs.jpg",
         }
 
         def randomizeNum():
             
             #self.after(5)
-            temp = randint(1,7)
+            temp = randint(1,19)
             self.someNumber = temp
 
             # Get the image path from the dictionary

@@ -9,20 +9,16 @@ class Page(tk.Frame):
     
     def __init__(self, *args, **kwargs):
         tk.Frame.__init__(self, *args, **kwargs)
+        self.configure(bg='#293241')  # Set the background color of the frame
 
     def show(self):
         self.lift()
         
-
     def doNothing(self):
         pass
 
-    def on_closing(self):
-        if messagebox.askyesno(title = "Quit?", message = "Do you really want to quit?"):
-            #actually closes the window
-            self.destroy()
-
-    def refresh(self):
+    #GOAL: Refresh all pages whenever another page is selected
+    def reset(self):
 
         #retrieve directory path
         dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -34,7 +30,10 @@ class Page(tk.Frame):
         self.randomImage = ImageTk.PhotoImage(self.imagePath)
 
         #create image labels to place the images onto the window
-        self.imageLabel = tk.Label(self, image = self.randomImage)
+        self.imageLabel = tk.Label(self, image = self.randomImage, borderwidth=4, relief="solid")
+
+        # Position images with padding
+        self.imageLabel.pack(side="bottom", expand="true", padx=10, pady=10)
 
 
 class CasualDining(Page):
@@ -86,17 +85,17 @@ class CasualDining(Page):
             self.imageLabel.config(image=self.randomImage)
 
         #add label to top of the window as program title
-        self.programTitle = tk.Label(self, text = "Casual Dining", font = ('Chalkboard', 60))
+        self.programTitle = tk.Label(self, text = "Casual Dining", font = ('Chalkboard', 60), bg='#293241', fg='#e0fbfc')
         self.programTitle.pack(padx = 5, pady = 20)
 
         #initialize a button frame
-        buttonframe = tk.Frame(self)
+        buttonframe = tk.Frame(self, bg='#293241')
 
         #stretch the button to fill the x-axis
         buttonframe.columnconfigure(0, weight = 1)
 
         #initialize randomize button
-        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30, command = randomizeNum)
+        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30, command = randomizeNum, bg='#3d5a80', fg='#98c1d9', activebackground='#ee6c4d', activeforeground='#000000')
 
         #add button the grid
         button.grid(padx = 30,pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
@@ -109,10 +108,10 @@ class CasualDining(Page):
         self.randomImage = ImageTk.PhotoImage(Image.open(image_path))
 
         #create image labels to place the images onto the window
-        self.imageLabel = tk.Label(self, image = self.randomImage)
+        self.imageLabel = tk.Label(self, image = self.randomImage, bg="#293241")
 
         #position images
-        self.imageLabel.pack(side = "bottom", expand = "true")
+        self.imageLabel.pack(side = "bottom", expand = "true", padx=10, pady=10)
         
 
 class FastFood(Page):
@@ -164,17 +163,17 @@ class FastFood(Page):
 
         
         #add label to top of the window as program title
-        self.programTitle = tk.Label(self, text = "Fast Food", font = ('Chalkboard', 60))
+        self.programTitle = tk.Label(self, text = "Fast Food", font = ('Chalkboard', 60), bg='#293241', fg='#e0fbfc')
         self.programTitle.pack(padx = 5, pady = 20)
 
         #initialize a button frame
-        buttonframe = tk.Frame(self)
+        buttonframe = tk.Frame(self, bg='#293241')
 
         #stretch the button to fill the x-axis
         buttonframe.columnconfigure(0, weight = 1)
 
         #initialize randomize button
-        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30, command = randomizeNum)
+        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30, command = randomizeNum, bg='#3d5a80', fg='#98c1d9', activebackground='#ee6c4d', activeforeground='#000000')
         
         #add button the grid
         button.grid(padx = 30,pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
@@ -187,10 +186,10 @@ class FastFood(Page):
         self.randomImage = ImageTk.PhotoImage(imagePath)
 
         #create image labels to place the images onto the window
-        self.imageLabel = tk.Label(self, image = self.randomImage)
+        self.imageLabel = tk.Label(self, image = self.randomImage, bg="#293241")
 
         #position images
-        self.imageLabel.pack(side = "bottom", expand = "true")
+        self.imageLabel.pack(side = "bottom", expand = "true", padx=10, pady=10)
 
 
 class BreakfastFood(Page):
@@ -199,7 +198,7 @@ class BreakfastFood(Page):
         Page.__init__(self, *args, **kwargs)
         
         #add label to top of the window as program title
-        self.programTitle = tk.Label(self, text = "Breakfast Foods", font = ('Chalkboard', 60))
+        self.programTitle = tk.Label(self, text = "Breakfast Foods", font = ('Chalkboard', 60), bg='#293241', fg='#e0fbfc')
         self.programTitle.pack(padx = 5, pady = 20)
 
         self.someNumber = 0
@@ -238,13 +237,13 @@ class BreakfastFood(Page):
             
         
         #initialize a button frame
-        buttonframe = tk.Frame(self)
+        buttonframe = tk.Frame(self, bg='#293241')
 
         #stretch the button to fill the x-axis
         buttonframe.columnconfigure(0, weight = 1)
 
         #initialize randomize button
-        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30, command = randomizeNum)
+        button = tk.Button(buttonframe, text = "Randomize", font = ('Chalkboard', 30), height = 2, width = 30, command = randomizeNum, bg='#3d5a80', fg='#98c1d9', activebackground='#ee6c4d', activeforeground='#000000')
         
         #add button the grid
         button.grid(padx = 30,pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
@@ -257,10 +256,10 @@ class BreakfastFood(Page):
         self.randomImage = ImageTk.PhotoImage(imagePath)
 
         #create image labels to place the images onto the window
-        self.imageLabel = tk.Label(self, image = self.randomImage)
+        self.imageLabel = tk.Label(self, image = self.randomImage, bg="#293241")
 
         #position images
-        self.imageLabel.pack(side = "bottom", expand = "true")
+        self.imageLabel.pack(side = "bottom", expand = "true", padx=10, pady=10)
 
 
 class TitlePage(Page):
@@ -269,27 +268,12 @@ class TitlePage(Page):
         Page.__init__(self, *args, **kwargs)
 
         #add label to top of the window as program title
-        self.programTitle = tk.Label(self, text = "Welcome", font = ('Chalkboard', 80))
-        self.programTitle.pack(padx = 5, pady = 30)
+        self.programTitle = tk.Label(self, text = "Welcome", font = ('Chalkboard', 90), bg='#293241', fg='#e0fbfc')
+        self.programTitle.pack(padx = 5, pady = 80)
 
         #add label to below program title for description
-        self.programTitle = tk.Label(self, text = "Please select one of the following options", font = ('Chalkboard', 24))
+        self.programTitle = tk.Label(self, text = "Please select an option", font = ('Chalkboard', 30), bg='#293241', fg='#e0fbfc')
         self.programTitle.pack(padx = 5, pady = 20)
-
-        # #initialize a button frame
-        # buttonframe = tk.Frame(self)
-
-        # #stretch the button to fill the x-axis
-        # buttonframe.columnconfigure(0, weight = 1)
-
-        # #initialize randomize button
-        # button = tk.Button(buttonframe, text = "Reset Program", font = ('Chalkboard', 14), height = 2, width = 30, command = self.refresh)
-        
-        # #add button the grid
-        # button.grid(padx = 30,pady = 16, row = 0, column = 0, sticky = tk.W + tk.E)
-        
-        # #stretch into the x-axis
-        # buttonframe.pack(fill = 'x')
 
 class MainView(tk.Frame):
 
@@ -303,10 +287,10 @@ class MainView(tk.Frame):
         p4 = BreakfastFood(self)
 
         #create frame for the buttons
-        buttonframe = tk.Frame(self)
+        buttonframe = tk.Frame(self, bg='#293241')
 
         #create container for switching between the 4 modes
-        container = tk.Frame(self)
+        container = tk.Frame(self, bg='#293241')
         
         # stretch the 4 buttons to fill the x-axis
         buttonframe.columnconfigure(0, weight = 1)
@@ -324,19 +308,19 @@ class MainView(tk.Frame):
         p4.place(in_=container, x=0, y=0, relwidth=1, relheight=1)
 
         #initialize all restaurants button to the frame
-        firstButton = tk.Button(buttonframe, text = "Main Menu", font = ('Chalkboard', 14), height = 2, width = 30, command = p1.show)
+        firstButton = tk.Button(buttonframe, text = "Main Menu", font = ('Chalkboard', 14), height = 2, width = 30, command = p1.show, bg='#3d5a80', fg='#98c1d9', activebackground='#ee6c4d', activeforeground='#000000')
         firstButton.grid(pady = 12, row = 0, column = 0, sticky = tk.W + tk.E)
 
         #initialize fast food button to the frame
-        secondButton = tk.Button(buttonframe, text = "Casual Dining", font = ('Chalkboard', 14), height = 2, width = 30, command = p2.show)
+        secondButton = tk.Button(buttonframe, text = "Casual Dining", font = ('Chalkboard', 14), height = 2, width = 30, command = p2.show, bg='#3d5a80', fg='#98c1d9', activebackground='#ee6c4d', activeforeground='#000000')
         secondButton.grid(pady = 12, row = 0, column = 1, sticky = tk.W + tk.E)
 
         #initialize genre selector button to the frame
-        thirdButton = tk.Button(buttonframe, text = "Fast Food", font = ('Chalkboard', 14), height = 2, width = 30, command = p3.show)
+        thirdButton = tk.Button(buttonframe, text = "Fast Food", font = ('Chalkboard', 14), height = 2, width = 30, command = p3.show, bg='#3d5a80', fg='#98c1d9', activebackground='#ee6c4d', activeforeground='#000000')
         thirdButton.grid(pady = 12, row = 0, column = 2, sticky = tk.W + tk.E)
 
         #initialize breakfast button to the frame
-        fourthButton = tk.Button(buttonframe, text = "Breakfast", font = ('Chalkboard', 14), height = 2, width = 30, command = p4.show)
+        fourthButton = tk.Button(buttonframe, text = "Breakfast", font = ('Chalkboard', 14), height = 2, width = 30, command = p4.show, bg='#3d5a80', fg='#98c1d9', activebackground='#ee6c4d', activeforeground='#000000')
         fourthButton.grid(pady = 12, row = 0, column = 3, sticky = tk.W + tk.E)
 
         #stretch into the y-axis
@@ -344,6 +328,9 @@ class MainView(tk.Frame):
         
         #start program by showing title page
         p1.show()
+
+        def reset_all(self):
+            p1.reset
 
 
 if __name__ == '__main__':

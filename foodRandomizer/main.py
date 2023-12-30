@@ -5,6 +5,11 @@ from PIL import ImageTk
 from PIL import Image
 from random import *
 
+
+#API key for Yelp Fusion API
+#api_key = "z947pXoeRdPjiu-erKgwOIZNgVKGdDsCeF8jRdKjo5TBxGtPldWvsP9YqgB-y4MRS0DMRt4OkN4y68sgBM8s4u4plRbWlaIk4FLWJcTwcbv6h5LmEtIqcJmM4kIXZXYx"
+
+
 class Page(tk.Frame):
     
     def __init__(self, *args, **kwargs):

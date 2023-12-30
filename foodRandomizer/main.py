@@ -4,6 +4,7 @@ from tkinter import messagebox
 from PIL import ImageTk
 from PIL import Image
 from random import *
+import webbrowser
 
 class Page(tk.Frame):
     
@@ -44,45 +45,51 @@ class CasualDining(Page):
         self.someNumber = 0
 
         #retrieve directory path
-        dir_path = os.path.dirname(os.path.realpath(__file__))
+        self.dir_path = os.path.dirname(os.path.realpath(__file__))
 
         # Define a dictionary to map restaurant numbers to image paths
-        restaurant_images = {
-            1: "/images/restaurants/applebees.jpg",
-            2: "/images/restaurants/c-dropout.jpg",
-            3: "/images/restaurants/chillis.jpg",
-            4: "/images/restaurants/oreganos.jpg",
-            5: "/images/restaurants/pita-jungle.jpg",
-            6: "/images/restaurants/postinos.jpg",
-            7: "/images/restaurants/t-roadhouse.jpg",
-            8: "/images/restaurants/fourpeaks.jpg",
-            9: "/images/restaurants/fuzzys.png",
-            10: "/images/restaurants/chuckbox.jpg",
-            11: "/images/restaurants/ipetes.png",
-            12: "/images/restaurants/theporch.jpg",
-            13: "/images/restaurants/sauce.jpg",
-            14: "/images/restaurants/cheesecake.png",
-            15: "/images/restaurants/thelodge.jpg",
-            15: "/images/restaurants/keg.png",
-            16: "/images/restaurants/rrobin.jpg",
-            17: "/images/restaurants/bdubs.png",
-            18: "/images/restaurants/ogarden.jpg",
-            19: "/images/restaurants/bjs.jpg",
+        self.restaurant_images = {
+            1: {"image": "/images/restaurants/applebees.jpg", "website": "https://www.applebees.com"},
+            2: {"image": "/images/restaurants/c-dropout.jpg", "website": "https://www.culinarydropout.com"},
+            3: {"image": "/images/restaurants/chillis.jpg", "website": "https://www.chilis.com"},
+            4: {"image": "/images/restaurants/oreganos.jpg", "website": "https://www.oreganos.com"},
+            5: {"image": "/images/restaurants/pita-jungle.jpg", "website": "https://www.pitajungle.com"},
+            6: {"image": "/images/restaurants/postinos.jpg", "website": "https://www.postinowinecafe.com"},
+            7: {"image": "/images/restaurants/t-roadhouse.jpg", "website": "https://www.texasroadhouse.com"},
+            8: {"image": "/images/restaurants/fourpeaks.jpg", "website": "https://www.fourpeaks.com"},
+            9: {"image": "/images/restaurants/fuzzys.png", "website": "https://www.fuzzystacoshop.com"},
+            10: {"image": "/images/restaurants/chuckbox.jpg", "website": "https://www.thechuckbox.com"},
+            11: {"image": "/images/restaurants/ipetes.png", "website": "https://www.ikesplace.com"},
+            12: {"image": "/images/restaurants/theporch.jpg", "website": "https://www.porcharcadia.com"},
+            13: {"image": "/images/restaurants/sauce.jpg", "website": "https://www.saucepizzaandwine.com"},
+            14: {"image": "/images/restaurants/cheesecake.png", "website": "https://www.thecheesecakefactory.com"},
+            15: {"image": "/images/restaurants/thelodge.jpg", "website": "https://www.lodgetucson.com"},
+            16: {"image": "/images/restaurants/keg.png", "website": "https://www.kegsteakhouse.com"},
+            17: {"image": "/images/restaurants/rrobin.jpg", "website": "https://www.redrobin.com"},
+            18: {"image": "/images/restaurants/bdubs.png", "website": "https://www.buffalowildwings.com"},
+            19: {"image": "/images/restaurants/ogarden.jpg", "website": "https://www.olivegarden.com"},
+            20: {"image": "/images/restaurants/bjs.jpg", "website": "https://www.bjsrestaurants.com"},
         }
 
         def randomizeNum():
             
             #self.after(5)
-            temp = randint(1,19)
+            temp = randint(1,20)
             self.someNumber = temp
 
-            # Get the image path from the dictionary
-            image_path = dir_path + restaurant_images.get(self.someNumber, "/images/question-mark.gif")
+            # Get the dictionary for the selected restaurant
+            restaurant_dict = self.restaurant_images.get(self.someNumber)
+
+            # If the dictionary exists, get the image path; otherwise, use the default image path
+            image_path = self.dir_path + (restaurant_dict["image"] if restaurant_dict else "/images/question-mark.gif")
 
             # Initialize image of restaurant logo
             image = Image.open(image_path)
             self.randomImage = ImageTk.PhotoImage(image)
             self.imageLabel.config(image=self.randomImage)
+
+            # Bind the click event to the image label
+            self.imageLabel.bind("<Button-1>", self.open_webpage)
 
         #add label to top of the window as program title
         self.programTitle = tk.Label(self, text = "Casual Dining", font = ('Chalkboard', 60), bg='#293241', fg='#e0fbfc')
@@ -104,7 +111,7 @@ class CasualDining(Page):
         buttonframe.pack(fill = 'x')
    
         #initialize image of restaurant logo
-        image_path = dir_path + restaurant_images.get(self.someNumber, "/images/question-mark.gif")
+        image_path = self.dir_path + self.restaurant_images.get(self.someNumber, "/images/question-mark.gif")
         self.randomImage = ImageTk.PhotoImage(Image.open(image_path))
 
         #create image labels to place the images onto the window
@@ -112,6 +119,24 @@ class CasualDining(Page):
 
         #position images
         self.imageLabel.pack(side = "bottom", expand = "true", padx=10, pady=10)
+
+    def open_webpage(self, event):
+        # Get the selected restaurant number
+        restaurant_number = self.someNumber
+
+        # Get the image path and website URL for the selected restaurant
+        restaurant_dict = self.restaurant_images[restaurant_number]
+        image_path = self.dir_path + restaurant_dict["image"]
+        website_url = restaurant_dict["website"]
+
+        # Update the image in the imageLabel widget
+        image = Image.open(image_path)
+        photo = ImageTk.PhotoImage(image)
+        self.imageLabel.config(image=photo)
+        self.imageLabel.image = photo  # Keep a reference to the image object to prevent it from being garbage collected
+
+        # Open the website in the default web browser
+        webbrowser.open(website_url)
         
 
 class FastFood(Page):
@@ -122,44 +147,49 @@ class FastFood(Page):
         self.someNumber = 0
 
         #retrieve directory path
-        dir_path = os.path.dirname(os.path.realpath(__file__))
+        self.dir_path = os.path.dirname(os.path.realpath(__file__))
 
-        # Define a dictionary to map restaurant numbers to image paths
-        fastfood_images = {
-            1: "/images/fast_food/mcdonalds.jpg",
-            2: "/images/fast_food/in-n-out.jpg",
-            3: "/images/fast_food/canes.jpg",
-            4: "/images/fast_food/c-fil-a.jpg",
-            5: "/images/fast_food/culvers.jpg",
-            6: "/images/fast_food/j-in-b.jpg",
-            7: "/images/fast_food/sonic.jpg",
-            8: "/images/fast_food/wendys.jpg",
-            9: "/images/fast_food/burger-king.jpg",
-            10: "/images/fast_food/chipotle.jpg",
-            11: "/images/fast_food/dominos.jpg",
-            12: "/images/fast_food/five-guys.jpg",
-            13: "/images/fast_food/ikes.jpg",
-            14: "/images/fast_food/panda.jpg",
-            15: "/images/fast_food/pei-wei.jpg",
-            16: "/images/fast_food/popeyes.jpg",
-            17: "/images/fast_food/portillos.jpg",
-            18: "/images/fast_food/subway.jpg",
-            19: "/images/fast_food/whataburger.jpg",
-            20: "/images/fast_food/wingstop.jpg",
-            21: "/images/fast_food/tacobell.jpg"
+        self.fastfood_images = {
+            1: {"image": "/images/fast_food/mcdonalds.jpg", "website": "https://www.mcdonalds.com"},
+            2: {"image": "/images/fast_food/in-n-out.jpg", "website": "https://www.in-n-out.com"},
+            3: {"image": "/images/fast_food/canes.jpg", "website": "https://www.raisingcanes.com"},
+            4: {"image": "/images/fast_food/c-fil-a.jpg", "website": "https://www.chick-fil-a.com"},
+            5: {"image": "/images/fast_food/culvers.jpg", "website": "https://www.culvers.com"},
+            6: {"image": "/images/fast_food/j-in-b.jpg", "website": "https://www.jackinthebox.com"},
+            7: {"image": "/images/fast_food/sonic.jpg", "website": "https://www.sonicdrivein.com"},
+            8: {"image": "/images/fast_food/wendys.jpg", "website": "https://www.wendys.com"},
+            9: {"image": "/images/fast_food/burger-king.jpg", "website": "https://www.bk.com"},
+            10: {"image": "/images/fast_food/chipotle.jpg", "website": "https://www.chipotle.com"},
+            11: {"image": "/images/fast_food/dominos.jpg", "website": "https://www.dominos.com"},
+            12: {"image": "/images/fast_food/five-guys.jpg", "website": "https://www.fiveguys.com"},
+            13: {"image": "/images/fast_food/ikes.jpg", "website": "https://www.ikesplace.com"},
+            14: {"image": "/images/fast_food/panda.jpg", "website": "https://www.pandaexpress.com"},
+            15: {"image": "/images/fast_food/pei-wei.jpg", "website": "https://www.peiwei.com"},
+            16: {"image": "/images/fast_food/popeyes.jpg", "website": "https://www.popeyes.com"},
+            17: {"image": "/images/fast_food/portillos.jpg", "website": "https://www.portillos.com"},
+            18: {"image": "/images/fast_food/subway.jpg", "website": "https://www.subway.com"},
+            19: {"image": "/images/fast_food/whataburger.jpg", "website": "https://www.whataburger.com"},
+            20: {"image": "/images/fast_food/wingstop.jpg", "website": "https://www.wingstop.com"},
+            21: {"image": "/images/fast_food/tacobell.jpg", "website": "https://www.tacobell.com"}
         }
         
         def randomizeNum():
             temp = randint(1,21)
             self.someNumber = temp
 
-            # Get the image path from the dictionary
-            image_path = dir_path + fastfood_images.get(self.someNumber, "/images/question-mark.gif")
+            # Get the dictionary for the selected fastfood
+            fastfood_dict = self.fastfood_images.get(self.someNumber)
+
+            # If the dictionary exists, get the image path; otherwise, use the default image path
+            image_path = self.dir_path + (fastfood_dict["image"] if fastfood_dict else "/images/question-mark.gif")
 
             # Initialize image of restaurant logo
             image = Image.open(image_path)
             self.randomImage = ImageTk.PhotoImage(image)
             self.imageLabel.config(image=self.randomImage)
+
+            # Bind the click event to the image label
+            self.imageLabel.bind("<Button-1>", self.open_webpage)
 
         
         #add label to top of the window as program title
@@ -182,7 +212,7 @@ class FastFood(Page):
         buttonframe.pack(fill = 'x')
 
         #initialize image of restaurant cookie
-        imagePath = Image.open(dir_path + "/images/question-mark.gif")
+        imagePath = Image.open(self.dir_path + "/images/question-mark.gif")
         self.randomImage = ImageTk.PhotoImage(imagePath)
 
         #create image labels to place the images onto the window
@@ -191,11 +221,47 @@ class FastFood(Page):
         #position images
         self.imageLabel.pack(side = "bottom", expand = "true", padx=10, pady=10)
 
+    def open_webpage(self, event):
+        # Get the selected fastfood number
+        fastfood_number = self.someNumber
+
+        # Get the image path and website URL for the selected fastfood
+        fastfood_dict = self.fastfood_images[fastfood_number]
+        image_path = self.dir_path + fastfood_dict["image"]
+        website_url = fastfood_dict["website"]
+
+        # Update the image in the imageLabel widget
+        image = Image.open(image_path)
+        photo = ImageTk.PhotoImage(image)
+        self.imageLabel.config(image=photo)
+        self.imageLabel.image = photo  # Keep a reference to the image object to prevent it from being garbage collected
+
+        # Open the website in the default web browser
+        webbrowser.open(website_url)
+
 
 class BreakfastFood(Page):
     
     def __init__(self, *args, **kwargs):
         Page.__init__(self, *args, **kwargs)
+        
+        # Define a dictionary to map breakfast numbers to image paths and websites
+        self.breakfast_images = {
+            0: {"image": "/images/question-mark.gif", "website": "http://www.jameszanetti.com"},
+            1: {"image": "/images/breakfast/snooze.jpg", "website": "http://www.snooze.com"},
+            2: {"image": "/images/breakfast/crepe-club.jpg", "website": "https://www.thecrepeclub.com/"},
+            3: {"image": "/images/breakfast/einsteins.jpg", "website": "https://www.einsteinbros.com/"},
+            4: {"image": "/images/breakfast/morning-squeeze.jpg", "website": "http://www.morningsqueeze.com"},
+            5: {"image": "/images/breakfast/sunnys.jpg", "website": "http://www.sunnys.com"},
+            6: {"image": "/images/breakfast/first-watch.jpg", "website": "http://www.firstwatch.com"},
+            7: {"image": "/images/breakfast/nektar.jpg", "website": "http://www.nektar.com"},
+            8: {"image": "/images/breakfast/starbucks.jpg", "website": "http://www.starbucks.com"},
+            9: {"image": "/images/breakfast/dutch.jpg", "website": "http://www.dutchbros.com"},
+            10: {"image": "/images/breakfast/jamba.jpg", "website": "http://www.jamba.com"},
+            11: {"image": "/images/fast_food/mcdonalds.jpg", "website": "http://www.mcdonalds.com"},
+            12: {"image": "/images/fast_food/c-fil-a.jpg", "website": "http://www.chick-fil-a.com"},
+            13: {"image": "/images/breakfast/ihop.jpg", "website": "http://www.ihop.com"}
+        }
         
         #add label to top of the window as program title
         self.programTitle = tk.Label(self, text = "Breakfast Foods", font = ('Chalkboard', 60), bg='#293241', fg='#e0fbfc')
@@ -204,36 +270,25 @@ class BreakfastFood(Page):
         self.someNumber = 0
 
         #retrieve directory path
-        dir_path = os.path.dirname(os.path.realpath(__file__))
-
-        # Define a dictionary to map breakfast numbers to image paths
-        breakfast_images = {
-            1: "/images/breakfast/snooze.jpg",
-            2: "/images/breakfast/crepe-club.jpg",
-            3: "/images/breakfast/einsteins.jpg",
-            4: "/images/breakfast/morning-squeeze.jpg",
-            5: "/images/breakfast/sunnys.jpg",
-            6: "/images/breakfast/first-watch.jpg",
-            7: "/images/breakfast/nektar.jpg",
-            8: "/images/breakfast/starbucks.jpg",
-            9: "/images/breakfast/dutch.jpg",
-            10: "/images/breakfast/jamba.jpg",
-            11: "/images/fast_food/mcdonalds.jpg",
-            12: "/images/fast_food/c-fil-a.jpg",
-            13: "/images/breakfast/ihop.jpg"
-        }
+        self.dir_path = os.path.dirname(os.path.realpath(__file__))
         
         def randomizeNum():
             temp = randint(1,13)
             self.someNumber = temp
 
-            # Get the image path from the dictionary
-            image_path = dir_path + breakfast_images.get(self.someNumber, "/images/question-mark.gif")
+            # Get the dictionary for the selected breakfast
+            breakfast_dict = self.breakfast_images.get(self.someNumber)
+
+            # If the dictionary exists, get the image path; otherwise, use the default image path
+            image_path = self.dir_path + (breakfast_dict["image"] if breakfast_dict else "/images/question-mark.gif")
 
             # Initialize image of restaurant logo
             image = Image.open(image_path)
             self.randomImage = ImageTk.PhotoImage(image)
             self.imageLabel.config(image=self.randomImage)
+
+            # Bind the click event to the image label
+            self.imageLabel.bind("<Button-1>", self.open_webpage)
             
         
         #initialize a button frame
@@ -252,7 +307,7 @@ class BreakfastFood(Page):
         buttonframe.pack(fill = 'x')
 
         #initialize image of restaurant cookie
-        imagePath = Image.open(dir_path + "/images/question-mark.gif")
+        imagePath = Image.open(self.dir_path + "/images/question-mark.gif")
         self.randomImage = ImageTk.PhotoImage(imagePath)
 
         #create image labels to place the images onto the window
@@ -260,6 +315,24 @@ class BreakfastFood(Page):
 
         #position images
         self.imageLabel.pack(side = "bottom", expand = "true", padx=10, pady=10)
+    
+    def open_webpage(self, event):
+        # Get the selected breakfast number
+        breakfast_number = self.someNumber
+
+        # Get the image path and website URL for the selected breakfast
+        breakfast_dict = self.breakfast_images[breakfast_number]
+        image_path = self.dir_path + breakfast_dict["image"]
+        website_url = breakfast_dict["website"]
+
+        # Update the image in the imageLabel widget
+        image = Image.open(image_path)
+        photo = ImageTk.PhotoImage(image)
+        self.imageLabel.config(image=photo)
+        self.imageLabel.image = photo  # Keep a reference to the image object to prevent it from being garbage collected
+
+        # Open the website in the default web browser
+        webbrowser.open(website_url)
 
 
 class TitlePage(Page):

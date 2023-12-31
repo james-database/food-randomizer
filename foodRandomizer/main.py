@@ -64,7 +64,7 @@ class CasualDining(Page):
             8: {"image": "/images/restaurants/fourpeaks.jpg", "website": "https://www.fourpeaks.com"},
             9: {"image": "/images/restaurants/fuzzys.png", "website": "https://www.fuzzystacoshop.com"},
             10: {"image": "/images/restaurants/chuckbox.jpg", "website": "https://www.thechuckbox.com"},
-            11: {"image": "/images/restaurants/ipetes.png", "website": "https://www.ikesplace.com"},
+            11: {"image": "/images/restaurants/ipetes.png", "website": "https://www.ikessandwich.com/"},
             12: {"image": "/images/restaurants/theporch.jpg", "website": "https://www.porcharcadia.com"},
             13: {"image": "/images/restaurants/sauce.jpg", "website": "https://www.saucepizzaandwine.com"},
             14: {"image": "/images/restaurants/cheesecake.png", "website": "https://www.thecheesecakefactory.com"},
@@ -74,6 +74,7 @@ class CasualDining(Page):
             18: {"image": "/images/restaurants/bdubs.png", "website": "https://www.buffalowildwings.com"},
             19: {"image": "/images/restaurants/ogarden.jpg", "website": "https://www.olivegarden.com"},
             20: {"image": "/images/restaurants/bjs.jpg", "website": "https://www.bjsrestaurants.com"},
+            21: {"image": "/images/breakfast/panera.png", "website": "https://www.panerabread.com/en-us/home.html"}
         }
 
         def randomizeNum():
@@ -157,25 +158,26 @@ class FastFood(Page):
         self.fastfood_images = {
             1: {"image": "/images/fast_food/mcdonalds.jpg", "website": "https://www.mcdonalds.com"},
             2: {"image": "/images/fast_food/in-n-out.jpg", "website": "https://www.in-n-out.com"},
-            3: {"image": "/images/fast_food/canes.jpg", "website": "https://www.raisingcanes.com"},
-            4: {"image": "/images/fast_food/c-fil-a.jpg", "website": "https://www.chick-fil-a.com"},
+            3: {"image": "/images/fast_food/canes.png", "website": "https://www.raisingcanes.com"},
+            4: {"image": "/images/fast_food/c-fil-a.png", "website": "https://www.chick-fil-a.com"},
             5: {"image": "/images/fast_food/culvers.jpg", "website": "https://www.culvers.com"},
-            6: {"image": "/images/fast_food/j-in-b.jpg", "website": "https://www.jackinthebox.com"},
+            6: {"image": "/images/fast_food/j-in-b.png", "website": "https://www.jackinthebox.com"},
             7: {"image": "/images/fast_food/sonic.jpg", "website": "https://www.sonicdrivein.com"},
             8: {"image": "/images/fast_food/wendys.jpg", "website": "https://www.wendys.com"},
-            9: {"image": "/images/fast_food/burger-king.jpg", "website": "https://www.bk.com"},
-            10: {"image": "/images/fast_food/chipotle.jpg", "website": "https://www.chipotle.com"},
-            11: {"image": "/images/fast_food/dominos.jpg", "website": "https://www.dominos.com"},
+            9: {"image": "/images/fast_food/burger-king.png", "website": "https://www.bk.com"},
+            10: {"image": "/images/fast_food/chipotle.png", "website": "https://www.chipotle.com"},
+            11: {"image": "/images/fast_food/dominos.png", "website": "https://www.dominos.com"},
             12: {"image": "/images/fast_food/five-guys.jpg", "website": "https://www.fiveguys.com"},
-            13: {"image": "/images/fast_food/ikes.jpg", "website": "https://www.ikesplace.com"},
+            13: {"image": "/images/fast_food/ikes.png", "website": "https://www.ikesplace.com"},
             14: {"image": "/images/fast_food/panda.jpg", "website": "https://www.pandaexpress.com"},
-            15: {"image": "/images/fast_food/pei-wei.jpg", "website": "https://www.peiwei.com"},
+            15: {"image": "/images/fast_food/pei-wei.png", "website": "https://www.peiwei.com"},
             16: {"image": "/images/fast_food/popeyes.jpg", "website": "https://www.popeyes.com"},
-            17: {"image": "/images/fast_food/portillos.jpg", "website": "https://www.portillos.com"},
-            18: {"image": "/images/fast_food/subway.jpg", "website": "https://www.subway.com"},
+            17: {"image": "/images/fast_food/portillos.png", "website": "https://www.portillos.com"},
+            18: {"image": "/images/fast_food/subway.png", "website": "https://www.subway.com"},
             19: {"image": "/images/fast_food/whataburger.jpg", "website": "https://www.whataburger.com"},
             20: {"image": "/images/fast_food/wingstop.jpg", "website": "https://www.wingstop.com"},
-            21: {"image": "/images/fast_food/tacobell.jpg", "website": "https://www.tacobell.com"}
+            21: {"image": "/images/fast_food/tacobell.jpg", "website": "https://www.tacobell.com"},
+            22: {"image": "/images/breakfast/panera.png", "website": "https://www.panerabread.com/en-us/home.html"}
         }
         
         def randomizeNum():
@@ -253,19 +255,25 @@ class BreakfastFood(Page):
         # Define a dictionary to map breakfast numbers to image paths and websites
         self.breakfast_images = {
             0: {"image": "/images/question-mark.gif", "website": "http://www.jameszanetti.com"},
-            1: {"image": "/images/breakfast/snooze.jpg", "website": "http://www.snooze.com"},
-            2: {"image": "/images/breakfast/crepe-club.jpg", "website": "https://www.thecrepeclub.com/"},
-            3: {"image": "/images/breakfast/einsteins.jpg", "website": "https://www.einsteinbros.com/"},
+            1: {"image": "/images/breakfast/snooze.png", "website": "http://www.snooze.com"},
+            2: {"image": "/images/breakfast/crepe-club.png", "website": "https://www.thecrepeclub.com/"},
+            3: {"image": "/images/breakfast/einsteins.png", "website": "https://www.einsteinbros.com/"},
             4: {"image": "/images/breakfast/morning-squeeze.jpg", "website": "http://www.morningsqueeze.com"},
             5: {"image": "/images/breakfast/sunnys.jpg", "website": "http://www.sunnys.com"},
             6: {"image": "/images/breakfast/first-watch.jpg", "website": "http://www.firstwatch.com"},
-            7: {"image": "/images/breakfast/nektar.jpg", "website": "http://www.nektar.com"},
+            7: {"image": "/images/breakfast/nektar.png", "website": "http://www.nektar.com"},
             8: {"image": "/images/breakfast/starbucks.jpg", "website": "http://www.starbucks.com"},
             9: {"image": "/images/breakfast/dutch.jpg", "website": "http://www.dutchbros.com"},
-            10: {"image": "/images/breakfast/jamba.jpg", "website": "http://www.jamba.com"},
+            10: {"image": "/images/breakfast/jamba.png", "website": "http://www.jamba.com"},
             11: {"image": "/images/fast_food/mcdonalds.jpg", "website": "http://www.mcdonalds.com"},
-            12: {"image": "/images/fast_food/c-fil-a.jpg", "website": "http://www.chick-fil-a.com"},
-            13: {"image": "/images/breakfast/ihop.jpg", "website": "http://www.ihop.com"}
+            12: {"image": "/images/fast_food/c-fil-a.png", "website": "http://www.chick-fil-a.com"},
+            13: {"image": "/images/breakfast/ihop.png", "website": "http://www.ihop.com"},
+            14: {"image": "/images/breakfast/eggstacy.png", "website": "https://eggstasyaz.com/"},
+            15: {"image": "/images/breakfast/br.png", "website": "https://br.coffee/"},
+            16: {"image": "/images/breakfast/egg-joe.png", "website": "https://eggnjoe.com/"},
+            17: {"image": "/images/breakfast/panera.png", "website": "https://www.panerabread.com/en-us/home.html"},
+            18: {"image": "/images/breakfast/black-bear.jpg", "website": "https://blackbeardiner.com/"},
+            19: {"image": "/images/breakfast/mimis.jpg", "website": "https://www.mimiscafe.com/"}
         }
         
         #add label to top of the window as program title
@@ -278,7 +286,7 @@ class BreakfastFood(Page):
         self.dir_path = os.path.dirname(os.path.realpath(__file__))
         
         def randomizeNum():
-            temp = randint(1,13)
+            temp = randint(1,19)
             self.someNumber = temp
 
             # Get the dictionary for the selected breakfast
